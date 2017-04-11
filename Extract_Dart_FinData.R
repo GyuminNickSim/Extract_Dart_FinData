@@ -72,7 +72,7 @@ ChgNametoCode <- function (CodeName) {
     }
   }
   
-  CompanyList <- readxl::read_excel("D:\\DartDownload\\CompanyList\\GICS Market Cap. (Specified) Macro.xlsx", 1)[,1:2]
+  CompanyList <- readxl::read_excel("https://github.com/jeong7683/Extract_Dart_FinData/raw/master/CompanyList/CompanyList.xlsx", 1)[,1:2]
   names(CompanyList) <- c("Code", "Cname")
   
   Code = 0
