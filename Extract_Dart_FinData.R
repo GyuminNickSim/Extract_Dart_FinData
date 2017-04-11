@@ -3,7 +3,7 @@
 ## Designed by: Hyunjin Jeong
 ## 
 ## 2017.04.08. (2017.04.11. Modified)
-## Alpha 7.1
+## Alpha 7.2
 ## 
 ## Please execute this code in R Studio or R Console (GUI)
 ##########################################################################
@@ -26,13 +26,13 @@ StartExtract <- function () {
   cat("\n")
   
   if (auth!="q!") {
-    cat("Write down company's code or name. (6 numbers)")
+    cat("Write down company's code(6 numbers) or name.")
     cat("\nIn the case of company names, they are based on KRX. (ex. SM(X), ¿¡½º¿¥(O))")
     cat("\nIf you want to finish this program, press 'q!'\n")
     CodeName <- as.character(readline(prompt=""))
-    companyCode <- function(CodeName)
+    companyCode <- ChgNametoCode(CodeName)
     
-    if (CodeName!="q!") {
+    if (companyCode!="q!") {
       cat("\nWrite down start date. (yyyymmdd) (Required to input date after 1st Apr, 2012)")
       cat("\nIf you want to finish this program, press 'q!'\n")
       startDate <- as.character(readline(prompt=""))
@@ -57,6 +57,7 @@ StartExtract <- function () {
   Sys.setlocale()
 }
 
+
 ## Change company name to code
 ChgNametoCode <- function (CodeName) {
   
@@ -72,7 +73,7 @@ ChgNametoCode <- function (CodeName) {
   }
   
   CompanyList <- readxl::read_excel("D:\\DartDownload\\CompanyList\\GICS Market Cap. (Specified) Macro.xlsx", 1)[,1:2]
-  colnames(CompanyList) <- c("Code", "Cname")
+  names(CompanyList) <- c("Code", "Cname")
   
   Code = 0
   for (L1 in 1:nrow(CompanyList)) {
@@ -91,11 +92,11 @@ ChgNametoCode <- function (CodeName) {
     }
   }
   
-  if (Code!=0) {
-    return(as.character(companyCode))
-  } else {
-    return(as.character(CodeName))
+  if (Code==0) {
+    companyCode <- "q!"
   }
+  
+  return(as.character(companyCode))
 }
 
 ## Sub function to post request, receive JSON file, and change to Excel csv file
