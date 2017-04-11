@@ -3,7 +3,7 @@
 ## Designed by: Hyunjin Jeong
 ## 
 ## 2017.04.08. (2017.04.11. Modified)
-## Alpha 7.2
+## Alpha 7.3
 ## 
 ## Please execute this code in R Studio or R Console (GUI)
 ##########################################################################
@@ -72,7 +72,31 @@ ChgNametoCode <- function (CodeName) {
     }
   }
   
-  CompanyList <- readxl::read_excel("https://github.com/jeong7683/Extract_Dart_FinData/raw/master/CompanyList/CompanyList.xlsx", 1)[,1:2]
+  ## Make folder to store your data
+  mainDir <- "D:\\"
+  subDir <- "DartDownload"
+  
+  setwd("D:\\")
+  if (file.exists(subDir)){
+    setwd(file.path(mainDir, subDir))
+  } else {
+    dir.create(file.path(mainDir, subDir))
+    setwd(file.path(mainDir, subDir))
+  }
+  
+  mainDir2 <- "D:\\DartDownload"
+  subDir2_2 <- "CompanyList"
+  
+  setwd("D:\\")
+  if (file.exists(subDir2_2)){
+    setwd(file.path(mainDir2, subDir2_2))
+  } else {
+    dir.create(file.path(mainDir2, subDir2_2))
+    setwd(file.path(mainDir2, subDir2_2))
+  }
+  
+  download.file("https://github.com/jeong7683/Extract_Dart_FinData/blob/master/CompanyList/CompanyList.xlsx?raw=true", "CompanyList.xlsx", mode="wb")
+  CompanyList <- readxl::read_excel("CompanyList.xlsx", 1)
   names(CompanyList) <- c("Code", "Cname")
   
   Code = 0
@@ -153,17 +177,7 @@ DartJSONtoExcel <- function (auth, companyCode, startDate, finishDate=NULL) {
     }
     
     ## Make folder to store your data
-    mainDir <- "D:\\"
-    subDir <- "DartDownload"
-    
-    setwd("D:\\")
-    if (file.exists(subDir)){
-      setwd(file.path(mainDir, subDir))
-    } else {
-      dir.create(file.path(mainDir, subDir))
-      setwd(file.path(mainDir, subDir))
-    }
-    
+
     mainDir2 <- "D:\\DartDownload"
     subDir2 <- "Data"
     
