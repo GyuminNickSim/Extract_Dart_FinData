@@ -19,7 +19,7 @@
 > source("https://raw.githubusercontent.com/jeong7683/Extract_Dart_FinData/master/Extract_Dart_FinData.R") 입력 시 바로 실행됩니다.
 
 
-## 소스 코드
+## 함수 설명
 
 > 함수의 경우 main 함수 역할을 하며 정보를 입력받는 StartExtract 함수와 실제로 API를 이용해 재무정보를 얻어 재무상태표, 손익계산서, 현금흐름표 데이터를 만드는 DartJSONtoExcel 함수로 이루어져 있습니다.
 
