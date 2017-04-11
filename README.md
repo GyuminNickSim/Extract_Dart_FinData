@@ -1,6 +1,7 @@
 # Extract_Dart_FinData
 
 
+
 ## 요약
 
 > DART (금융감독원 전자공시시스템) 에서 재무정보를 찾을 때 테이블화가 되어 있지 않고 일일이 수작업으로 입력해야 하는 불편함을 개선할 목적으로 제작 (유료로는 테이블을 구할 수 있다고는 하나, 일반 사람 입장에서는 구하기 어려우므로)
@@ -12,11 +13,13 @@
 데이터를 각 회사별로 추출할 수 있음
 
 
+
 ## 설치 방법
 
 > R (R console(GUI), R studio 상관 없음) 에서
 
 > source("https://raw.githubusercontent.com/jeong7683/Extract_Dart_FinData/master/Extract_Dart_FinData.R") 입력 시 바로 실행됩니다.
+
 
 
 ## 함수 설명
@@ -30,8 +33,8 @@
 > DartJSONtoExcel: API 이용해 파일 다운로드 – 파일 입력 및 단위 통일(원) – 변수 통일(일부) – 연간, 누적데이터의 분기 환산 – 각 데이터별 폴더 분리 후 저장
 
 
-## 라이센스 정보
 
+## 라이센스 정보
 
 > 저작권자: 정현진 (Hyunjin Jeong)
 >> UNIST Business Analytics 석사과정
