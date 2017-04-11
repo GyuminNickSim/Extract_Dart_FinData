@@ -95,9 +95,10 @@ ChgNametoCode <- function (CodeName) {
     setwd(file.path(mainDir2, subDir2_2))
   }
   
-  download.file("https://github.com/jeong7683/Extract_Dart_FinData/blob/master/CompanyList/CompanyList.xlsx?raw=true", "CompanyList.xlsx", mode="wb")
+  download.file("https://github.com/jeong7683/Extract_Dart_FinData/blob/master/CompanyList/CompanyList.xlsx?raw=true", "CompanyList.xlsx", mode="wb", quiet=T)
   CompanyList <- readxl::read_excel("CompanyList.xlsx", 1)
   names(CompanyList) <- c("Code", "Cname")
+  file.remove("CompanyList.xlsx")
   
   Code = 0
   for (L1 in 1:nrow(CompanyList)) {
