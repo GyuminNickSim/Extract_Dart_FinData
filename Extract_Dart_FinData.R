@@ -26,13 +26,14 @@ StartExtract <- function () {
   cat("\n")
   
   if (auth!="q!") {
-    cat("Write down company's code. (6 numbers)")
+    cat("Write down company's code or name. (6 numbers)")
+    cat("\nIn the case of company names, they are based on KRX. (ex. SM(X), ¿¡½º¿¥(O))")
     cat("\nIf you want to finish this program, press 'q!'\n")
-    companyCode <- as.character(readline(prompt=""))
-    cat("\n")
+    CodeName <- as.character(readline(prompt=""))
+    companyCode <- function(CodeName)
     
-    if (companyCode!="q!") {
-      cat("Write down start date. (yyyymmdd) (Required to input date after 1st Apr, 2012)")
+    if (CodeName!="q!") {
+      cat("\nWrite down start date. (yyyymmdd) (Required to input date after 1st Apr, 2012)")
       cat("\nIf you want to finish this program, press 'q!'\n")
       startDate <- as.character(readline(prompt=""))
       cat("\n")
@@ -56,6 +57,46 @@ StartExtract <- function () {
   Sys.setlocale()
 }
 
+## Change company name to code
+ChgNametoCode <- function (CodeName) {
+  
+  Sys.setlocale("LC_ALL", "Korean_Korea.949")
+  
+  pkgs2 <- c("readxl")
+  tt2 <- sapply(pkgs2, require, character.only=T)
+  
+  for (index in 1:length(tt2)) {
+    if (tt2[index] == F) {
+      install.packages(names(tt2[index]))
+    }
+  }
+  
+  CompanyList <- readxl::read_excel("D:\\DartDownload\\CompanyList\\GICS Market Cap. (Specified) Macro.xlsx", 1)[,1:2]
+  colnames(CompanyList) <- c("Code", "Cname")
+  
+  Code = 0
+  for (L1 in 1:nrow(CompanyList)) {
+    if (CodeName==CompanyList$Code[L1]) {
+      companyCode <- CompanyList$Code[L1]
+      Code = Code + 1
+    }
+  }
+  
+  if (Code==0) {
+    for (L2 in 1:nrow(CompanyList)) {
+      if (CodeName==CompanyList$Cname[L2]) {
+        companyCode <- CompanyList$Code[L2]
+        Code = Code + 1
+      }
+    }
+  }
+  
+  if (Code!=0) {
+    return(as.character(companyCode))
+  } else {
+    return(as.character(CodeName))
+  }
+}
 
 ## Sub function to post request, receive JSON file, and change to Excel csv file
 
